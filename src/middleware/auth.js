@@ -1,10 +1,6 @@
 const { verifyToken } = require('../utils/jwt');
 const { sendUnauthorized, sendForbidden } = require('../utils/response');
 const User = require('../models/User');
-
-/**
- * Middleware to verify JWT token and authenticate user
- */
 const authenticate = async (req, res, next) => {
   try {
     // Get token from header
@@ -46,9 +42,6 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-/**
- * Middleware to check if user has required role
- */
 const authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -63,9 +56,6 @@ const authorize = (...roles) => {
   };
 };
 
-/**
- * Optional authentication - doesn't fail if no token provided
- */
 const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;

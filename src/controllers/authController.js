@@ -8,10 +8,6 @@ const {
 } = require('../utils/response');
 const { asyncHandler } = require('../middleware/errorHandler');
 
-/**
- * Register a new user
- * POST /auth/register
- */
 const register = asyncHandler(async (req, res) => {
   const { username, email, password, role } = req.validatedBody;
 
@@ -38,10 +34,6 @@ const register = asyncHandler(async (req, res) => {
   }, 'User registered successfully');
 });
 
-/**
- * Login user
- * POST /auth/login
- */
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.validatedBody;
 
@@ -71,10 +63,6 @@ const login = asyncHandler(async (req, res) => {
   }, 'Login successful');
 });
 
-/**
- * Logout user
- * POST /auth/logout
- */
 const logout = asyncHandler(async (req, res) => {
   // With JWT, logout is handled client-side by removing the token
   // Here we just send a success response
@@ -83,10 +71,6 @@ const logout = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, null, 'Logout successful');
 });
 
-/**
- * Get current user profile
- * GET /me
- */
 const getMe = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   

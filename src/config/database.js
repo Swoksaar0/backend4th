@@ -20,10 +20,10 @@ const connectDB = async () => {
     // Create indexes for better performance
     await createIndexes();
 
-    console.log('✅ MongoDB connected successfully');
+    console.log('MongoDB connected successfully');
     return db;
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error.message);
+    console.error('MongoDB connection error:', error.message);
     throw error;
   }
 };
@@ -39,9 +39,9 @@ const createIndexes = async () => {
     await db.collection('tasks').createIndex({ createdAt: -1 });
     await db.collection('tasks').createIndex({ status: 1 });
 
-    console.log('✅ Database indexes created');
+    console.log('Database indexes created');
   } catch (error) {
-    console.error('⚠️ Error creating indexes:', error.message);
+    console.error('Error creating indexes:', error.message);
   }
 };
 
@@ -55,7 +55,7 @@ const getDB = () => {
 const closeDB = async () => {
   if (client) {
     await client.close();
-    console.log('🔌 MongoDB connection closed');
+    console.log('MongoDB connection closed');
   }
 };
 

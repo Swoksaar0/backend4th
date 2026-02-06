@@ -8,10 +8,6 @@ const {
 } = require('../utils/response');
 const { asyncHandler } = require('../middleware/errorHandler');
 
-/**
- * Create a new task
- * POST /tasks
- */
 const createTask = asyncHandler(async (req, res) => {
   const { title, description, status } = req.validatedBody;
   const userId = req.user._id;
@@ -26,10 +22,6 @@ const createTask = asyncHandler(async (req, res) => {
   sendCreated(res, { task }, 'Task created successfully');
 });
 
-/**
- * Get all tasks for the logged-in user
- * GET /tasks
- */
 const getAllTasks = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const { status } = req.query;
@@ -47,10 +39,6 @@ const getAllTasks = asyncHandler(async (req, res) => {
   }, 'Tasks retrieved successfully');
 });
 
-/**
- * Get a specific task by ID
- * GET /tasks/:id
- */
 const getTaskById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -71,10 +59,6 @@ const getTaskById = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, { task }, 'Task retrieved successfully');
 });
 
-/**
- * Update task status
- * PATCH /tasks/:id
- */
 const updateTaskStatus = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { status } = req.validatedBody;
@@ -98,10 +82,6 @@ const updateTaskStatus = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, { task: updatedTask }, 'Task status updated successfully');
 });
 
-/**
- * Update entire task
- * PUT /tasks/:id
- */
 const updateTask = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const updateData = req.validatedBody;
@@ -125,10 +105,6 @@ const updateTask = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, { task: updatedTask }, 'Task updated successfully');
 });
 
-/**
- * Delete a task
- * DELETE /tasks/:id
- */
 const deleteTask = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

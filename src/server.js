@@ -5,7 +5,7 @@ const requiredEnvVars = ['JWT_SECRET', 'MONGO_URI'];
 const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
 if (missingEnvVars.length > 0) {
-  console.error('❌ FATAL ERROR: Missing required environment variables:');
+  console.error('FATAL ERROR: Missing required environment variables:');
   missingEnvVars.forEach(envVar => console.error(`   - ${envVar}`));
   console.error('\n💡 Please check your .env file and ensure all required variables are set.');
   process.exit(1);
@@ -13,9 +13,9 @@ if (missingEnvVars.length > 0) {
 
 // Validate JWT_SECRET strength
 if (process.env.JWT_SECRET.length < 32) {
-  console.warn('⚠️  WARNING: JWT_SECRET is too short. Use at least 32 characters for production.');
+  console.warn('WARNING: JWT_SECRET is too short. Use at least 32 characters for production.');
   if (process.env.NODE_ENV === 'production') {
-    console.error('❌ FATAL ERROR: JWT_SECRET must be at least 32 characters in production mode.');
+    console.error('FATAL ERROR: JWT_SECRET must be at least 32 characters in production mode.');
     process.exit(1);
   }
 }
@@ -82,8 +82,8 @@ const startServer = async () => {
     await connectDB();
 
     server = app.listen(PORT, () => {
-      console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-      console.log(`📊 Health check: http://localhost:${PORT}/health`);
+      console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+      console.log(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
@@ -97,22 +97,22 @@ const gracefulShutdown = async (signal) => {
 
   if (server) {
     server.close(async () => {
-      console.log('✅ HTTP server closed');
+      console.log('HTTP server closed');
 
       try {
         await closeDB();
-        console.log('✅ Database connections closed');
-        console.log('👋 Graceful shutdown completed');
+        console.log('Database connections closed');
+        console.log('Graceful shutdown completed');
         process.exit(0);
       } catch (error) {
-        console.error('❌ Error during graceful shutdown:', error);
+        console.error('Error during graceful shutdown:', error);
         process.exit(1);
       }
     });
 
     // Force shutdown after 10 seconds
     setTimeout(() => {
-      console.error('⚠️ Forced shutdown after timeout');
+      console.error('Forced shutdown after timeout');
       process.exit(1);
     }, 10000);
   } else {
@@ -126,7 +126,7 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', async (err) => {
-  console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+  console.error('UNHANDLED REJECTION!Shutting down...');
   console.error(err.name, err.message);
   console.error(err.stack);
 
@@ -146,7 +146,7 @@ process.on('unhandledRejection', async (err) => {
 
 // Handle uncaught exceptions
 process.on('uncaughtException', async (err) => {
-  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.error('UNCAUGHT EXCEPTION! Shutting down...');
   console.error(err.name, err.message);
   console.error(err.stack);
 

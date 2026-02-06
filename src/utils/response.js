@@ -1,7 +1,3 @@
-/**
- * Consistent JSON response utilities
- */
-
 const sendSuccess = (res, statusCode = 200, data = null, message = 'Success') => {
   const response = {
     success: true,
